@@ -10,6 +10,7 @@ import { routes } from './routes';
 import * as mongoose from 'mongoose';
 import fs from 'fs';
 import passport from './strategies/passport-strategy';
+import { SQSService } from './services/SQS';
 
 async function bootstrap() {
   if (!fs.existsSync(`.env.${env}`)) {
@@ -60,7 +61,7 @@ async function bootstrap() {
       console.log(`Server Started and Listening on PORT ${PORT} `);
     });
     // Start SQS Polling
-    // SQSService.initPoling();
+    SQSService.initPoling();
   } catch (err) {
     console.log('Error in starting the server', err);
   }
