@@ -30,6 +30,8 @@ const CommentSchema: mongoose.Schema = new mongoose.Schema({
     required: true,
     index: true,
   }
+}, {
+  timestamps: true,
 });
 
 const CommentModel: Model<IComment> = mongoose.model<IComment>('Comment', CommentSchema);
