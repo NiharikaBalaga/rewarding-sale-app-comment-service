@@ -1,30 +1,45 @@
-import type { IComment } from '../DB/Models/Comment';
 import CommentModel from '../DB/Models/Comment';
-import type { IUser } from '../DB/Models/User';
+import type mongoose from 'mongoose';
 
-class Comment {
+class CommentService {
   // New comment creation
-  public static async createComment(user: IUser, postId: string, commentText: string): Promise<IComment> {
-    const newComment: IComment = new CommentModel({
-      userId: user.id,
+  public static async newComment(postId: string | mongoose.Types.ObjectId,
+    userId: string | mongoose.Types.ObjectId,
+    comment: string) {
+    return new CommentModel({
       postId,
-      comment: commentText
-    });
-
-    // Save the comment to the database and return the saved document
-    return newComment.save();
+      userId,
+      comment
+    }).save();
   }
 
   // Update Comment
-  public static async updateComment(commentId: string, updatedCommentText: string): Promise<IComment | null> {
-    return CommentModel.findByIdAndUpdate(commentId, { comment: updatedCommentText }, { new: true });
+  public static async updateComment(commentId: string | mongoose.Types.ObjectId,
+    updatedCommentText: string,
+    userId: string | mongoose.Types.ObjectId){
+    return CommentModel.findOneAndUpdate({
+      _id: commentId,
+      userId,
+    }, {
+      comment: updatedCommentText
+    }, {
+      new: true
+    });
   }
 
   // Delete comment
-  public static async deleteComment(commentId: string): Promise<boolean> {
-    const result = await CommentModel.findByIdAndDelete(commentId);
-    return !!result; // If result is null, return false; otherwise, return true
+  public static async deleteComment(commentId: string | mongoose.Types.ObjectId, userId: string | mongoose.Types.ObjectId) {
+    return CommentModel.findOneAndDelete({
+      _id: commentId,
+      userId
+    });
+  }
+
+  public static async getPostComments(postId: mongoose.Types.ObjectId | string){
+    return CommentModel.find({
+      postId
+    });
   }
 }
 
-export { Comment };
+export { CommentService };

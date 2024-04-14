@@ -8,6 +8,7 @@ const httpCodes =  {
   badGateway: 502,
   unprocessable_entity: 422,
   conflict: 409,
+  created: 201
 };
 
 export {  httpCodes };

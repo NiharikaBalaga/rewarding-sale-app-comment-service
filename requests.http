@@ -1,0 +1,29 @@
+### Post a comment // postid
+POST http://localhost:3004/api/comment/6615fb6959cd8d2e799b78e0
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjMmY1MGExN2RkOGU1MzIyNDlkOGIiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtOTAwMCIsImlhdCI6MTcxMzEyMzE1MiwiZXhwIjoxNzE1NzE1MTUyfQ.0aG4koK-9-YYQFBfcLb4vpIfjnTgvXnkXGC73Txq2Hw
+content-type: application/json
+
+{
+"comment": "Great Deal champs"
+}
+
+
+### Get Post Comments // postid
+GET http://localhost:3004/api/comment/comments/6615fb6959cd8d2e799b78e0
+content-type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBkYWJiZDljYmE3MDAzMjk1NDJhMjMiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtNDAzNSIsImlhdCI6MTcxMjE3MTk2NSwiZXhwIjoxNzE0NzYzOTY1fQ._by1Zj-xIdomc6grXkOvzGCwClf6kwoBoIZMhK4shLU
+
+### Update a Comment // commentid
+PATCH http://localhost:3004/api/comment/661c3179ab7ce9e4ac3d3289
+content-type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjMmY1MGExN2RkOGU1MzIyNDlkOGIiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtOTAwMCIsImlhdCI6MTcxMzEyMzE1MiwiZXhwIjoxNzE1NzE1MTUyfQ.0aG4koK-9-YYQFBfcLb4vpIfjnTgvXnkXGC73Txq2Hw
+
+{
+  "comment": "Great Product but costly"
+}
+
+### Delete A Comment //commentid
+DELETE http://localhost:3004/api/comment/661c30e0ab7ce9e4ac3d3267
+content-type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFjMmY1MGExN2RkOGU1MzIyNDlkOGIiLCJwaG9uZU51bWJlciI6IjQzNy01NTYtOTAwMCIsImlhdCI6MTcxMzEyMzE1MiwiZXhwIjoxNzE1NzE1MTUyfQ.0aG4koK-9-YYQFBfcLb4vpIfjnTgvXnkXGC73Txq2Hw
+
