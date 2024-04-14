@@ -1,20 +1,37 @@
-import { body, matchedData, validationResult } from 'express-validator';
+import { body, matchedData, param, validationResult } from 'express-validator';
 import type { NextFunction, Request, Response } from 'express';
 import { httpCodes } from '../constants/http-status-code';
-const newComment = () => {
+const commentBody = () => {
   return [
-    body('postId')
-      .trim()
-      .notEmpty()
-      .escape()
-      .isMongoId()
-      .withMessage('Post ID is required'),
     body('comment')
       .trim()
       .escape()
       .notEmpty()
       .isString()
       .withMessage('comment is required'),
+  ];
+};
+
+
+const commentId = () => {
+  return [
+    param('commentId')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isMongoId()
+      .withMessage('Comment Id is required'),
+  ];
+};
+
+const postId = () => {
+  return [
+    param('postId')
+      .trim()
+      .notEmpty()
+      .escape()
+      .isMongoId()
+      .withMessage('Post Id is required'),
   ];
 };
 
@@ -33,5 +50,5 @@ const validateErrors = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export {
-  newComment, validateErrors
+  commentBody, validateErrors, postId, commentId
 };

@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from 'passport';
 import { isBlocked, tokenBlacklist } from '../middlewares';
-import { validateErrors } from './RequestValidations';
-import { newComment } from './RequestValidations';
+import { commentId, postId, validateErrors } from './RequestValidations';
+import { commentBody } from './RequestValidations';
 import { CommentController } from '../controller';
 
 const router = express.Router();
@@ -12,7 +12,14 @@ function getRouter() {
     res.send({ message: 'Hello from comment' });
   });
 
-  router.post('', [passport.authenticate('jwt-access', { session: false }), isBlocked, tokenBlacklist, newComment(), validateErrors, CommentController.createComment]);
+  router.post('/:postId', [passport.authenticate('jwt-access', { session: false }),
+    isBlocked, tokenBlacklist, postId(), commentBody(), validateErrors, CommentController.createComment]);
+  router.get('/comments/:postId', [passport.authenticate('jwt-access',
+    { session: false }), isBlocked, tokenBlacklist, postId(), validateErrors, CommentController.getPostComments]);
+  router.patch('/:commentId', [passport.authenticate('jwt-access', { session: false }), isBlocked,
+    tokenBlacklist, commentId(), commentBody(), validateErrors, CommentController.updateComment]);
+  router.delete('/:commentId', [passport.authenticate('jwt-access', { session: false }),
+    isBlocked, tokenBlacklist, commentId(), validateErrors, CommentController.deleteComment]);
   return router;
 }
 
